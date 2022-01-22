@@ -18,14 +18,19 @@ import csv
 # parse sequence fasta file
 identifiers = [seq_record.id for seq_record in SeqIO.parse("fastafile.fasta",
                                                            "fasta")]
-lengths = [len(seq_record.seq) for seq_record in SeqIO.parse("fastafile.fasta",
+lengths = [(seq_record.seq) for seq_record in SeqIO.parse("fastafile.fasta",
                                                              "fasta")]
+Description = [(seq_record.description) for seq_record in SeqIO.parse("fastafile.fasta",
+                                                             "fasta")]
+                                                             
 # converting lists to pandas Series
 s1 = Series(identifiers, name='ID')
 s2 = Series(lengths, name='length')
+s3 = Series(Description, name='description')
+
 # Gathering Series into a pandas DataFrame and rename index as ID column
-Qfasta = DataFrame(dict(ID=s1, length=s2)).set_index(['ID'])
-demo = Qfasta.to_csv("demo.csv")
+Qfasta = DataFrame(dict(ID=s1, length=s2, Description=s3)).set_index(['ID'])
+demo = Qfasta.to_csv("demo1.csv")
 
 """ 
 pip install seqio
